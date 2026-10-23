@@ -349,7 +349,9 @@ def citation(p):
 
 def traduction(tr, tb, sent_id, langue):
     r = tr.get((tb, sent_id))
-    return f"\n*« {r[langue]} »*\n" if r and r.get(langue) else ""
+    if not (r and r.get(langue)):
+        return ""
+    return f"\n*« {r[langue]} »*\n" if langue == "fr" else f"\n*“{r[langue]}”*\n"
 
 
 def lignes_ldt(phrase):
