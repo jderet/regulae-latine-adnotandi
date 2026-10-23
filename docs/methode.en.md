@@ -23,9 +23,9 @@ For each treebank, the example is drawn from the sentences that follow **that tr
 3. where the phenomenon appears in its most typical form (for the copula, for instance, a predicate adjective with an overt subject);
 4. the one closest to 9 words; on a tie, the first by identifier.
 
-The translations of the chosen sentences are made by hand and stored in `scripts/traductions.tsv` (treebank, `sent_id`, French, English). If an example changes, its translation is missing until it is added.
-
 The choice is therefore deterministic: running the script again gives the same examples. For Perseus and PROIEL, only a sentence present in the original format can be chosen, and its original analysis is shown below it.
+
+The translations of the chosen sentences are made by hand and stored in `scripts/traductions.tsv` (treebank, `sent_id`, French, English). If an example changes, its translation is missing until it is added.
 
 ## Trees
 
