@@ -38,7 +38,7 @@ TEXTES = {
            "@hote": "hôte", "@autre": "autre mot", "@tete": "tête",
            "@part": "part.", "@nom": "nom", "@inf": "inf.", "@acc": "acc.",
            "@premier": "premier membre", "@suivant": "membre suivant", "@seule": "proposition seule",
-           "@surnom": "nom", "@surverbe": "verbe",
+           "@surnom": "nom", "@surverbe": "verbe", "@liaison": "relatif de liaison",
            "supplement": "autre analyse"},
     "en": {"dp": ":", "phrase": "sentence", "freq_tb": "Treebank", "freq_n": "Occurrences", "freq_an": "Most frequent analyses",
            "source": "Source", "licence": "licence", "conllu": "CoNLL-U lines",
@@ -48,7 +48,7 @@ TEXTES = {
            "@hote": "host", "@autre": "other word", "@tete": "head",
            "@part": "part.", "@nom": "noun", "@inf": "inf.", "@acc": "acc.",
            "@premier": "first conjunct", "@suivant": "later conjunct", "@seule": "standalone clause",
-           "@surnom": "noun", "@surverbe": "verb",
+           "@surnom": "noun", "@surverbe": "verb", "@liaison": "connecting relative",
            "supplement": "another analysis"},
 }
 
@@ -310,6 +310,53 @@ def participium(p):
         yield f"{m['rel']} → {sur}", [m["id"], h["id"]], m["rel"] in ("acl", "amod", "advcl", "advcl:pred")
 
 
+def predicat(p, m):
+    """Le prédicat de la proposition qui contient m : le premier mot, en remontant depuis la tête de m,
+    qui est un verbe ou porte une copule."""
+    x = par_id(p, m["tete"]) if m["tete"] else None
+    while x is not None:
+        if x["upos"] in ("VERB", "AUX") or any(k["rel"] == "cop" for k in enfants(p, x)):
+            return x
+        x = par_id(p, x["tete"]) if x["tete"] else None
+    return None
+
+
+def relativa(p):
+    """Proposition relative : pour chaque relatif (qui, quicumque, PronType=Rel), le prédicat de sa
+    proposition, sa relation et la catégorie de sa tête (nom : relative à antécédent ; verbe : relative
+    sans antécédent, le plus souvent). Une relative coordonnée (conj) est laissée de côté ; une relative
+    racine de la phrase est un relatif de liaison (Quae cum ita sint)."""
+    for r in p["mots"]:
+        if u_i(r["lemme"]) not in ("qui", "quicumque") or r["feats"].get("PronType") != "Rel":
+            continue
+        c = predicat(p, r)
+        if c is None or c["rel"].startswith("conj"):
+            continue
+        if c["rel"] == "root":
+            yield "root (@liaison)", [r["id"], c["id"]], False
+            continue
+        h = par_id(p, c["tete"])
+        sur = "@surnom" if h["upos"] in NOMINAUX else "@surverbe" if h["upos"] in ("VERB", "AUX") else h["upos"]
+        yield f"{c['rel']} → {sur}", [r["id"], c["id"]], h["upos"] == "NOUN" and c["rel"].startswith("acl")
+
+
+# Verbes de demande, d'ordre, d'effort et de crainte, construits avec ut ou ne + subjonctif.
+VERBA_UT = {"rogo", "oro", "postulo", "precor", "obsecro", "flagito", "exoro", "impetro", "impero",
+            "praecipio", "edico", "decerno", "statuo", "moneo", "admoneo", "hortor", "persuadeo",
+            "suadeo", "efficio", "perficio", "curo", "caueo", "permitto", "timeo", "metuo", "uereor"}
+
+
+def ut_completiva(p):
+    """Proposition en ut, uti ou ne au subjonctif qui dépend d'un verbe de VERBA_UT : sa relation."""
+    for m in p["mots"]:
+        if m["upos"] not in ("VERB", "AUX") or m["feats"].get("Mood") != "Sub" or not m["tete"]:
+            continue
+        mk = [k for k in enfants(p, m) if k["rel"] == "mark" and u_i(k["lemme"]) in ("ut", "uti", "ne")]
+        h = par_id(p, m["tete"])
+        if mk and h["upos"] == "VERB" and u_i(h["lemme"]) in VERBA_UT:
+            yield m["rel"], [h["id"], mk[0]["id"], m["id"]], h["feats"].get("VerbForm") == "Fin"
+
+
 PHENOMENES = {
     "copula": copula,
     "ablativus-absolutus": ablativus_absolutus,
@@ -320,6 +367,8 @@ PHENOMENES = {
     "ellipsis": ellipsis,
     "obliqui": obliqui,
     "participium": participium,
+    "relativa": relativa,
+    "ut-completiva": ut_completiva,
 }
 
 # Exemples supplémentaires, pour une analyse qui n'est pas la plus fréquente du treebank mais que la
@@ -328,6 +377,7 @@ SUPPLEMENTS = {
     "sine-verbo": [("CIRCSE", "@tete : NOUN Dat", lambda p: "Tacitus" in p["sent_id"])],
     "ellipsis": [("CIRCSE", "orphan → root (@premier)", lambda p: "Tacitus" in p["sent_id"])],
     "participium": [("Perseus", "amod → @surnom", lambda p: p["sent_id"].startswith("phi0474.phi013"))],
+    "relativa": [("Perseus", "acl:relcl → @surverbe", lambda p: p["sent_id"].startswith("phi0631.phi001"))],
 }
 
 
@@ -444,7 +494,7 @@ def svg_proiel(phrase, cibles):
 # --- Écriture des fragments ----------------------------------------------------------------------
 
 def libelle(analyse, t):
-    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule", "@surnom", "@surverbe"):
+    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule", "@surnom", "@surverbe", "@liaison"):
         analyse = analyse.replace(cle, t[cle])
     return analyse.replace("|", "/")
 

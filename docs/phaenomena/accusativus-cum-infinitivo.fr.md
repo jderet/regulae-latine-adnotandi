@@ -24,6 +24,8 @@ Toutes les normes font donc de l'accusatif le sujet de l'infinitif, et non l'obj
   | `xcomp` | 29 | 9 | 33 | 23 | 12 | 4 |
   | `ccomp` | 8 | 45 | 119 | 7 | 4 | 5 |
 
+- **Infinitif sans sujet propre** (*malo dicere*, *statui parare*, *cogo* + infinitif) : `xcomp` le plus souvent, mais une part va en `ccomp`, surtout dans Perseus (56 `ccomp` contre 312 `xcomp`), PROIEL (258 contre 1 930) et UDante (105 contre 473) ; CIRCSE (14 contre 244) et ITTB (29 contre 3 969) s'en tiennent presque toujours à `xcomp`, que suit la norme adnotationes-latinae. Ces comptes portent sur les infinitifs sans `nsubj` qui dépendent d'un verbe.
+
 - **Infinitif racine** (13 % dans Perseus, 8 % dans PROIEL) : il s'agit du discours indirect continu, dont le verbe introducteur est dans une phrase précédente, et de l'infinitif de narration.
 
 ## Fréquences

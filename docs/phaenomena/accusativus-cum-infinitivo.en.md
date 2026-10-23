@@ -24,6 +24,8 @@ All standards therefore make the accusative the subject of the infinitive, not t
   | `xcomp` | 29 | 9 | 33 | 23 | 12 | 4 |
   | `ccomp` | 8 | 45 | 119 | 7 | 4 | 5 |
 
+- **Infinitive with no subject of its own** (*malo dicere*, *statui parare*, *cogo* + infinitive): mostly `xcomp`, but some go to `ccomp`, especially in Perseus (56 `ccomp` against 312 `xcomp`), PROIEL (258 against 1,930) and UDante (105 against 473); CIRCSE (14 against 244) and ITTB (29 against 3,969) almost always keep to `xcomp`, which the adnotationes-latinae standard follows. These counts cover infinitives without `nsubj` that depend on a verb.
+
 - **Infinitive as root** (13 % in Perseus, 8 % in PROIEL): this covers continuous indirect speech, whose introducing verb is in an earlier sentence, and the historical infinitive.
 
 ## Frequencies

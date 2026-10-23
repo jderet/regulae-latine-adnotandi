@@ -20,10 +20,11 @@ Chaque fiche suit le même plan :
 | [Ellipse du verbe](ellipsis.md) | `orphan` ou nœud vide ; verbe absent du premier membre ; ellipse hors coordination |
 | [Compléments régis](obliqui.md) | `obl:arg`, `obl` ou `obj` pour l'ablatif, le génitif et le datif régis ; `iobj` |
 | [Participe](participium.md) | `acl` sur le nom ou `advcl` sur le verbe ; `amod`, `nmod` ; `advcl:pred` |
+| [Relative](relativa.md) | `acl:relcl` ou `acl` ; relative sans antécédent avec ou sans `:relcl` ; relatif de liaison |
+| [Complétive en *ut*](ut-completiva.md) | `ccomp` ou `advcl` après les verbes de demande, d'ordre et de crainte |
 
 ## À venir
 
-- Relatives : `acl:relcl`, relatives sans antécédent (`csubj:relcl`…)
 - Comparaison : *quam*, ablatif de comparaison (`obl:cmp`, `advcl:cmp`)
 - Complément d'agent et datif d'agent (`obl:agent`)
 - Adjectif prédicatif et attribut de l'objet (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)

@@ -43,13 +43,17 @@ Scores computed on the Tacitus part therefore count differences of convention as
 
 ## Open questions
 
-The evaluation on the *Catilinarians* (UD Perseus) brought up cases the standard does not settle yet:
+The evaluation on the *Catilinarians* and the *Catiline* (UD Perseus) brought up cases the standard does not settle yet, or settles differently from CIRCSE:
 
 - **noun predicated of a pronoun** (*nos consules perferemus*, *ego video consul*): `xcomp` in Perseus, and in CIRCSE for nouns after *videor* and *fio*; `appos` is the other reading;
 - ***iam pridem*, *iam diu***: a chain of adverbs (Perseus) or a fixed expression (`fixed`);
-- **attachment of adverbs**: to the verb, or to the adverb, preposition or noun they modify, as Perseus often does.
+- **attachment of adverbs**: to the verb, or to the adverb, preposition or noun they modify, as Perseus often does;
+- **completive *ut* and *ne* clauses** after a verb of asking, ordering or fearing: the standard has `ccomp`, like UD and PROIEL; CIRCSE and Perseus have `advcl` (see [Completive *ut* clauses](../phaenomena/ut-completiva.md));
+- ***videor***: the standard lists it among full verbs and gives it a lemma of its own; CIRCSE and Perseus only have *video*;
+- ***paucus*, *cunctus*, *reliquus***: DET in Perseus, ITTB and (for the first two) CIRCSE, ADJ in PROIEL; the standard's list of DET does not name them;
+- ***igitur***: CCONJ `cc` in the standard (decision 15, "as in CIRCSE"), but CIRCSE has only 4 occurrences, split between `cc` and `discourse`; Perseus, ITTB, LLCT and UDante make it PART `discourse`, PROIEL ADV `discourse`. *itaque* (decision 38) is in the same situation.
 
-On this text, Perseus also follows conventions of its own (parts of speech, features, ablative `obj`, participles), described on the [Perseus page](perseus.md#conventions-compared-with-circse).
+On these texts, Perseus also follows conventions of its own (parts of speech, features, ablative `obj`, participles, relative clauses), described on the [Perseus page](perseus.md#conventions-compared-with-circse).
 
 ## Status
 

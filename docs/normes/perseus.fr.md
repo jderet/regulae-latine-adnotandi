@@ -20,7 +20,7 @@
 
 ## Conventions comparées à CIRCSE
 
-UD Perseus et CIRCSE ont presque la même taille (29 223 et 29 055 mots) et couvrent tous deux la littérature classique, mais ils n'annotent pas de la même façon. Un analyseur qui suit CIRCSE perd des points sur Perseus sans faire de vraie erreur. Les écarts ci-dessous ont été relevés en évaluant la chaîne [adnotationes-latinae](adnotationes.md) sur les *Catilinaires*, puis comptés sur tout le treebank (UD 2.18).
+UD Perseus et CIRCSE ont presque la même taille (29 223 et 29 055 mots) et couvrent tous deux la littérature classique, mais ils n'annotent pas de la même façon. Un analyseur qui suit CIRCSE perd des points sur Perseus sans faire de vraie erreur. Les écarts ci-dessous ont été relevés en évaluant la chaîne [adnotationes-latinae](adnotationes.md) sur les *Catilinaires* de Cicéron et le *Catilina* de Salluste, puis comptés sur tout le treebank (UD 2.18).
 
 ### Catégories
 
@@ -36,13 +36,22 @@ UD Perseus et CIRCSE ont presque la même taille (29 223 et 29 055 mots) et couv
 | *senex* | ADJ (7), NOUN (5) | NOUN (22) |
 | *ecce* | PART (7) | INTJ (18) |
 | *an*, *quin* | SCONJ (10, 6) | PART (31, 15) |
+| *igitur* | PART `discourse` (15) | partagé : CCONJ `cc` (2), PART `discourse` (2) |
+| *itaque* | lemme *ita*, ADV `advmod` (23 sur 25) | absent |
+| *ne* de *neque* découpé | ADV `advmod` (90), SCONJ `mark` (10) | *neque* non découpé |
+| *quo*, *ubi* subordonnants | ADV `mark` (9 et 6), SCONJ sinon | SCONJ `mark` |
+| *quasi* | ADV `advmod` (8), SCONJ (5) | SCONJ |
+| Adjectifs substantivés au pluriel | NOUN à lemme propre, parfois : *omnia* (11), *omnes* (8), *multa*, *pauca* ; *omnis* DET (81) le plus souvent | DET ou ADJ |
+| *Kalendae*, *December* | PROPN | — |
 
 ### Lemmes
 
 - **Adverbes sous l'adjectif** : 226 adverbes sur 1 851 (12 %) ont pour lemme un adjectif du treebank (*facile* → *facilis*, *parum* → *parvus*, *longe* → *longus*, *male* → *malus*) ; 11 sur 1 491 dans CIRCSE.
 - ***vos*, *vobis*** sous *tu* ; *mehercle* sous *Hercules* (INTJ).
 - **Pluriels** : *castrum* (8) à côté de *castra* (3), *comitium*, *locum* pour *loca*.
-- **Interrogatif adjectif** sous *qui*, non sous *quis*.
+- **Interrogatif adjectif** sous *qui*, non sous *quis* ; quelques relatifs de liaison sous *quis* (*quibus mihi videntur*).
+- **Adverbes figés** sous le mot d'origine : *facile* sous *facilis* (14), *primum* sous *primus* (10), *merito* sous *mereo* (7), *paulo* sous *paulum* NOUN.
+- **Praenomina abrégés** : lemme *L*, *C*, *M*…, sans développement ; *uti*, *sicuti* gardent leur lemme.
 
 ### Traits
 
@@ -62,4 +71,8 @@ La convention de Perseus est proche de celle de Tacite dans CIRCSE (voir [CIRCSE
 - **Participes** : `advcl` (28 %), `nmod` (24 %) ou `amod` (23 %), selon que le LDT avait `ADV` ou `ATR` ; `acl` est rare. Voir [Participe](../phaenomena/participium.md).
 - **Nom attribut d'un pronom** : *nos consules perferemus*, *te imperatorem… desiderant* : le nom est `xcomp` du pronom. Perseus a 72 noms en `xcomp`, CIRCSE 42, surtout après *videor* et *fio*.
 - ***iam pridem*, *iam diu*** : chaîne d'adverbes (*pridem* `advmod:tmod` du verbe), non expression figée.
+- **Infinitif sans sujet propre** (*malo dicere*, *statui parare*) : `ccomp` 56 fois (CIRCSE : 14), `xcomp` 312 fois. Voir [Proposition infinitive](../phaenomena/accusativus-cum-infinitivo.md).
+- **Relative sans antécédent** : jamais de sous-type `:relcl` hors d'`acl:relcl` (*quae mente agitavi, audistis* : `acl:relcl` de *audistis*). Voir [Relative](../phaenomena/relativa.md).
+- **Complétive en *ut* et *ne*** : `advcl` le plus souvent, comme CIRCSE. Voir [Complétive en *ut*](../phaenomena/ut-completiva.md).
+- **Adverbe sur un nom** : `nmod` (12 cas : *privatim … liberalitate*) ; CIRCSE n'en a aucun.
 

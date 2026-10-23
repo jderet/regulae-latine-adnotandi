@@ -43,13 +43,17 @@ Les scores calculés sur la partie de Tacite comptent donc comme erreurs des éc
 
 ## Questions ouvertes
 
-L'évaluation sur les *Catilinaires* (UD Perseus) a fait apparaître des cas que la norme ne tranche pas encore :
+L'évaluation sur les *Catilinaires* et le *Catilina* (UD Perseus) a fait apparaître des cas que la norme ne tranche pas encore, ou tranche autrement que CIRCSE :
 
 - **nom attribut d'un pronom** (*nos consules perferemus*, *ego video consul*) : `xcomp` dans Perseus, et dans CIRCSE pour des noms après *videor* et *fio* ; `appos` est l'autre lecture ;
 - ***iam pridem*, *iam diu*** : chaîne d'adverbes (Perseus) ou expression figée (`fixed`) ;
-- **rattachement des adverbes** : au verbe, ou à l'adverbe, la préposition ou le nom qu'ils modifient, comme le fait souvent Perseus.
+- **rattachement des adverbes** : au verbe, ou à l'adverbe, la préposition ou le nom qu'ils modifient, comme le fait souvent Perseus ;
+- **complétive en *ut* et *ne*** après un verbe de demande, d'ordre ou de crainte : la norme écrit `ccomp`, comme UD et PROIEL ; CIRCSE et Perseus ont `advcl` (voir [Complétive en *ut*](../phaenomena/ut-completiva.md)) ;
+- ***videor*** : la norme le nomme parmi les verbes pleins et lui donne son propre lemme ; CIRCSE et Perseus n'ont que *video* ;
+- ***paucus*, *cunctus*, *reliquus*** : DET dans Perseus, ITTB et (pour les deux premiers) CIRCSE, ADJ dans PROIEL ; la liste des DET de la norme ne les nomme pas ;
+- ***igitur*** : CCONJ `cc` dans la norme (décision 15, « comme CIRCSE »), mais CIRCSE n'en a que 4 occurrences, partagées entre `cc` et `discourse` ; Perseus, ITTB, LLCT et UDante le mettent en PART `discourse`, PROIEL en ADV `discourse`. *itaque* (décision 38) est dans le même cas.
 
-Sur ce texte, Perseus suit en outre des conventions propres (catégories, traits, `obj` à l'ablatif, participes), décrites sur la [page de Perseus](perseus.md#conventions-comparees-a-circse).
+Sur ces textes, Perseus suit en outre des conventions propres (catégories, traits, `obj` à l'ablatif, participes, relatives), décrites sur la [page de Perseus](perseus.md#conventions-comparees-a-circse).
 
 ## Statut
 
