@@ -18,14 +18,15 @@ Chaque fiche suit le même plan :
 | [Coordination par *-que*](coordinatio.md) | découpage ; rattachement à l'hôte ou à la tête du conjoint ; *neque* |
 | [Proposition sans verbe](sine-verbo.md) | tête quand l'attribut est au datif, au génitif ou adverbe ; nœud vide de PROIEL, `ExD` du LDT |
 | [Ellipse du verbe](ellipsis.md) | `orphan` ou nœud vide ; verbe absent du premier membre ; ellipse hors coordination |
+| [Compléments régis](obliqui.md) | `obl:arg`, `obl` ou `obj` pour l'ablatif, le génitif et le datif régis ; `iobj` |
+| [Participe](participium.md) | `acl` sur le nom ou `advcl` sur le verbe ; `amod`, `nmod` ; `advcl:pred` |
 
 ## À venir
 
 - Relatives : `acl:relcl`, relatives sans antécédent (`csubj:relcl`…)
 - Comparaison : *quam*, ablatif de comparaison (`obl:cmp`, `advcl:cmp`)
-- Obliques régis : datif et ablatif d'argument (`obl:arg`, `iobj`)
 - Complément d'agent et datif d'agent (`obl:agent`)
-- Prédicatif (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
+- Adjectif prédicatif et attribut de l'objet (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
 - Discours rapporté : *inquit*, discours direct (`parataxis:reporting`, `ccomp:reported`)
 - Lieu et temps (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Déterminants et pronoms (`DET` ou `PRON` pour *hic*, *ille*, *is*)

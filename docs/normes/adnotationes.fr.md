@@ -18,6 +18,8 @@ Le projet *adnotationes-latinae* annote automatiquement l'ensemble du corpus lat
 | Noms propres | minuscule (*cocytus*) | majuscule (*Cocytus*), comme le dictionnaire |
 | Peuples | pluriel (*chatti*) ; PROPN chez Sénèque, NOUN chez Tacite | singulier (*Chattus*), avec `LS=` vers l'article du pluriel ; toujours PROPN |
 | Référence lexicale | lexique du LASLA | vedettes du Lewis & Short, avec `LS=` (identifiant d'article) et `LiLa=` (lemme de la *Lemma Bank*) en MISC ; `Gaffiot=` pour les mots absents du L&S |
+| Participes lexicalisés (*doctus*, *perditus*, *tacitus*) | VERB, lemme du verbe (1 331 participes VERB, 20 ADJ) | ADJ sous leur propre lemme s'ils ont un article dans le Lewis & Short (décision 10) |
+| *propior*, *proximus* | lemme *propior* pour les deux | positif *propinquus*, comme les autres degrés (décision 6) |
 | Comparatifs, superlatifs | positif | positif aussi (*maior* → *magnus*) ; le Gaffiot nomme en MISC les degrés qui ont une vedette à part |
 | Ponctuation | absente | présente (`punct`), règles UD écrites dans la norme |
 | Chiffres romains | — | NUM, `NumForm=Roman`, valeur en MISC ; ordinaux (*legio X*) `amod` et `NumType=Ord` |
@@ -38,6 +40,16 @@ CIRCSE n'annote pas la *Germanie* de Tacite comme les tragédies de Sénèque (v
 | *ceterus*, *unus* | ADJ, NUM | DET |
 
 Les scores calculés sur la partie de Tacite comptent donc comme erreurs des écarts de convention : la chaîne ne peut y dépasser 79 % d'accord sur les traits (98 % sur Sénèque).
+
+## Questions ouvertes
+
+L'évaluation sur les *Catilinaires* (UD Perseus) a fait apparaître des cas que la norme ne tranche pas encore :
+
+- **nom attribut d'un pronom** (*nos consules perferemus*, *ego video consul*) : `xcomp` dans Perseus, et dans CIRCSE pour des noms après *videor* et *fio* ; `appos` est l'autre lecture ;
+- ***iam pridem*, *iam diu*** : chaîne d'adverbes (Perseus) ou expression figée (`fixed`) ;
+- **rattachement des adverbes** : au verbe, ou à l'adverbe, la préposition ou le nom qu'ils modifient, comme le fait souvent Perseus.
+
+Sur ce texte, Perseus suit en outre des conventions propres (catégories, traits, `obj` à l'ablatif, participes), décrites sur la [page de Perseus](perseus.md#conventions-comparees-a-circse).
 
 ## Statut
 

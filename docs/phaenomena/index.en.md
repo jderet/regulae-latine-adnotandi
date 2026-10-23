@@ -18,14 +18,15 @@ Every page follows the same plan:
 | [Coordination with *-que*](coordinatio.md) | splitting; attachment to the host or to the head of the conjunct; *neque* |
 | [Verbless clauses](sine-verbo.md) | head when the predicate is a dative, a genitive or an adverb; PROIEL empty node, LDT `ExD` |
 | [Verb ellipsis](ellipsis.md) | `orphan` or empty node; verb missing from the first conjunct; ellipsis outside coordination |
+| [Governed obliques](obliqui.md) | `obl:arg`, `obl` or `obj` for a governed ablative, genitive or dative; `iobj` |
+| [Participles](participium.md) | `acl` on the noun or `advcl` on the verb; `amod`, `nmod`; `advcl:pred` |
 
 ## Coming next
 
 - Relative clauses: `acl:relcl`, free relatives (`csubj:relcl`…)
 - Comparison: *quam*, ablative of comparison (`obl:cmp`, `advcl:cmp`)
-- Governed obliques: argument dative and ablative (`obl:arg`, `iobj`)
 - Agent and dative of agent (`obl:agent`)
-- Predicative (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
+- Predicative adjectives and object complements (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
 - Reported speech: *inquit*, direct speech (`parataxis:reporting`, `ccomp:reported`)
 - Place and time (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Determiners and pronouns (`DET` or `PRON` for *hic*, *ille*, *is*)

@@ -18,6 +18,8 @@ The *adnotationes-latinae* project automatically annotates the whole Perseus Lat
 | Proper nouns | lowercase (*cocytus*) | capitalised (*Cocytus*), as in the dictionary |
 | Peoples | plural (*chatti*); PROPN in Seneca, NOUN in Tacitus | singular (*Chattus*), with `LS=` pointing to the plural entry; always PROPN |
 | Lexical reference | LASLA lexicon | Lewis & Short headwords, with `LS=` (entry identifier) and `LiLa=` (*Lemma Bank* lemma) in MISC; `Gaffiot=` for words missing from L&S |
+| Lexicalised participles (*doctus*, *perditus*, *tacitus*) | VERB, lemma of the verb (1,331 participles VERB, 20 ADJ) | ADJ under their own lemma if they have an entry in Lewis & Short (decision 10) |
+| *propior*, *proximus* | lemma *propior* for both | positive *propinquus*, like other degrees (decision 6) |
 | Comparatives, superlatives | positive | positive as well (*maior* → *magnus*); MISC gives the Gaffiot headword for degrees that have an entry of their own |
 | Punctuation | absent | present (`punct`), with UD rules written into the standard |
 | Roman numerals | — | NUM, `NumForm=Roman`, value in MISC; ordinals (*legio X*) are `amod` with `NumType=Ord` |
@@ -38,6 +40,16 @@ CIRCSE does not annotate Tacitus's *Germania* as it does Seneca's tragedies (see
 | *ceterus*, *unus* | ADJ, NUM | DET |
 
 Scores computed on the Tacitus part therefore count differences of convention as errors: the pipeline cannot exceed 79% agreement on features there (98% on Seneca).
+
+## Open questions
+
+The evaluation on the *Catilinarians* (UD Perseus) brought up cases the standard does not settle yet:
+
+- **noun predicated of a pronoun** (*nos consules perferemus*, *ego video consul*): `xcomp` in Perseus, and in CIRCSE for nouns after *videor* and *fio*; `appos` is the other reading;
+- ***iam pridem*, *iam diu***: a chain of adverbs (Perseus) or a fixed expression (`fixed`);
+- **attachment of adverbs**: to the verb, or to the adverb, preposition or noun they modify, as Perseus often does.
+
+On this text, Perseus also follows conventions of its own (parts of speech, features, ablative `obj`, participles), described on the [Perseus page](perseus.md#conventions-compared-with-circse).
 
 ## Status
 

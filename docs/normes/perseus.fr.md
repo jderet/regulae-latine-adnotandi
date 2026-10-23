@@ -17,3 +17,49 @@
 - **Gérondif et adjectif verbal** : la conversion les rend par `VerbForm=Part` avec `Aspect=Prosp`, alors que le LDT les distinguait par le mode (`g` adjectif verbal, `d` gérondif).
 - La coordination, tête de la structure dans le LDT (`COORD`), est reconstruite selon UD : premier conjoint tête, `cc` sur le conjoint suivant.
 - Ensemble petit mais varié, poésie comprise : c'est le seul treebank UD qui couvre Virgile et Ovide.
+
+## Conventions comparées à CIRCSE
+
+UD Perseus et CIRCSE ont presque la même taille (29 223 et 29 055 mots) et couvrent tous deux la littérature classique, mais ils n'annotent pas de la même façon. Un analyseur qui suit CIRCSE perd des points sur Perseus sans faire de vraie erreur. Les écarts ci-dessous ont été relevés en évaluant la chaîne [adnotationes-latinae](adnotationes.md) sur les *Catilinaires*, puis comptés sur tout le treebank (UD 2.18).
+
+### Catégories
+
+| Mots | Perseus | CIRCSE |
+|---|---|---|
+| *qui* adjectif interrogatif (*quem ad finem*) | *qui* DET (56) | *quis* PRON en `det` (85) |
+| *is, ea, id* | PRON (194), DET (39) | PRON chez Tacite ; DET dans la norme adnotationes-latinae |
+| *ne* négatif | ADV (99) | PART (56) |
+| *ceterus* | DET (20) | DET chez Tacite, ADJ chez Sénèque |
+| *verum* « mais » | SCONJ ou ADV, lemme *verus* | — |
+| *nemo* | NOUN (21) | PRON (24) |
+| *quisquam* | DET (17) | PRON (12) |
+| *senex* | ADJ (7), NOUN (5) | NOUN (22) |
+| *ecce* | PART (7) | INTJ (18) |
+| *an*, *quin* | SCONJ (10, 6) | PART (31, 15) |
+
+### Lemmes
+
+- **Adverbes sous l'adjectif** : 226 adverbes sur 1 851 (12 %) ont pour lemme un adjectif du treebank (*facile* → *facilis*, *parum* → *parvus*, *longe* → *longus*, *male* → *malus*) ; 11 sur 1 491 dans CIRCSE.
+- ***vos*, *vobis*** sous *tu* ; *mehercle* sous *Hercules* (INTJ).
+- **Pluriels** : *castrum* (8) à côté de *castra* (3), *comitium*, *locum* pour *loca*.
+- **Interrogatif adjectif** sous *qui*, non sous *quis*.
+
+### Traits
+
+| Trait | Perseus | CIRCSE |
+|---|---|---|
+| `Degree` sur les adjectifs | 8 % | 88 % (100 % chez Sénèque) |
+| `Polarity=Neg` sur *non* | 3 sur 262 | 251 sur 251 |
+| `Reflex=Yes` sur *suus* | jamais (129) | toujours (98) |
+| `PronType` des déterminants *qui*, *quidam*, *nullus* | toujours `Ind` | `Neg` (*nullus*) ou `Ind` (*quidam*) |
+| `PronType=Int` sur *cur*, *ubi*, *quando*… | jamais | 42 |
+
+La convention de Perseus est proche de celle de Tacite dans CIRCSE (voir [CIRCSE](circse.md#deux-conventions-seneque-et-tacite)) : peu de traits « par défaut ».
+
+### Syntaxe
+
+- **`obj` hors de l'accusatif** : 198 `obj` à l'ablatif et 34 au génitif (*abutere patientia nostra*, *obliviscere caedis*), hérités de l'`OBJ` du LDT. Voir [Compléments régis](../phaenomena/obliqui.md).
+- **Participes** : `advcl` (28 %), `nmod` (24 %) ou `amod` (23 %), selon que le LDT avait `ADV` ou `ATR` ; `acl` est rare. Voir [Participe](../phaenomena/participium.md).
+- **Nom attribut d'un pronom** : *nos consules perferemus*, *te imperatorem… desiderant* : le nom est `xcomp` du pronom. Perseus a 72 noms en `xcomp`, CIRCSE 42, surtout après *videor* et *fio*.
+- ***iam pridem*, *iam diu*** : chaîne d'adverbes (*pridem* `advmod:tmod` du verbe), non expression figée.
+

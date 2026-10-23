@@ -20,7 +20,7 @@ Pour UD_Latin-Perseus et UD_Latin-PROIEL, la même phrase est aussi montrée **d
 
 ## État du site
 
-Sept fiches : [copule](phaenomena/copula.md), [ablatif absolu](phaenomena/ablativus-absolutus.md), [proposition infinitive](phaenomena/accusativus-cum-infinitivo.md), [gérondif et adjectif verbal](phaenomena/gerundium-gerundivum.md), [coordination par -que](phaenomena/coordinatio.md), [proposition sans verbe](phaenomena/sine-verbo.md), [ellipse du verbe](phaenomena/ellipsis.md). Les fiches prévues sont listées sur la page [Phénomènes](phaenomena/index.md). Les corrections et propositions sont bienvenues sous forme d'*issues* ou de *pull requests* sur [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
+Neuf fiches : [copule](phaenomena/copula.md), [ablatif absolu](phaenomena/ablativus-absolutus.md), [proposition infinitive](phaenomena/accusativus-cum-infinitivo.md), [gérondif et adjectif verbal](phaenomena/gerundium-gerundivum.md), [coordination par -que](phaenomena/coordinatio.md), [proposition sans verbe](phaenomena/sine-verbo.md), [ellipse du verbe](phaenomena/ellipsis.md), [compléments régis](phaenomena/obliqui.md), [participe](phaenomena/participium.md). Les fiches prévues sont listées sur la page [Phénomènes](phaenomena/index.md). Les corrections et propositions sont bienvenues sous forme d'*issues* ou de *pull requests* sur [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
 
 ## Licence
 

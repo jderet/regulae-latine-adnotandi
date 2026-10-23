@@ -38,6 +38,7 @@ TEXTES = {
            "@hote": "hôte", "@autre": "autre mot", "@tete": "tête",
            "@part": "part.", "@nom": "nom", "@inf": "inf.", "@acc": "acc.",
            "@premier": "premier membre", "@suivant": "membre suivant", "@seule": "proposition seule",
+           "@surnom": "nom", "@surverbe": "verbe",
            "supplement": "autre analyse"},
     "en": {"dp": ":", "phrase": "sentence", "freq_tb": "Treebank", "freq_n": "Occurrences", "freq_an": "Most frequent analyses",
            "source": "Source", "licence": "licence", "conllu": "CoNLL-U lines",
@@ -47,6 +48,7 @@ TEXTES = {
            "@hote": "host", "@autre": "other word", "@tete": "head",
            "@part": "part.", "@nom": "noun", "@inf": "inf.", "@acc": "acc.",
            "@premier": "first conjunct", "@suivant": "later conjunct", "@seule": "standalone clause",
+           "@surnom": "noun", "@surverbe": "verb",
            "supplement": "another analysis"},
 }
 
@@ -260,6 +262,54 @@ def ellipsis(p):
         yield f"orphan → {place}", [h["id"]] + [k["id"] for k in orphelins], h["upos"] in ("NOUN", "PROPN")
 
 
+# Verbes qui régissent un cas autre que l'accusatif, lemmes ramenés en minuscules et en u/i.
+REGIMES = {
+    "Abl": {"utor", "abutor", "fruor", "fungor", "potior", "uescor", "careo", "egeo", "indigeo"},
+    "Gen": {"obliuiscor", "memini", "reminiscor", "misereor"},
+    "Dat": {"parco", "impero", "noceo", "faueo", "pareo", "resisto", "obsequor", "studeo", "inuideo",
+            "ignosco", "persuadeo", "obtempero", "subuenio", "medeor"},
+}
+
+
+def u_i(lemme):
+    return lemme.lower().replace("v", "u").replace("j", "i")
+
+
+def obliqui(p):
+    """Complément sans préposition d'un verbe qui régit l'ablatif, le génitif ou le datif (REGIMES) :
+    relation donnée à ce complément."""
+    for m in p["mots"]:
+        cas = m["feats"].get("Case")
+        if cas not in REGIMES or m["upos"] not in ("NOUN", "PROPN", "PRON", "DET", "ADJ"):
+            continue
+        h = par_id(p, m["tete"]) if m["tete"] else None
+        if h is None or h["upos"] != "VERB" or u_i(h["lemme"]) not in REGIMES[cas]:
+            continue
+        if any(k["upos"] == "ADP" for k in enfants(p, m)):
+            continue
+        yield f"{cas} : {m['rel']}", [h["id"], m["id"]], h["feats"].get("VerbForm") == "Fin" and m["upos"] == "NOUN"
+
+
+NOMINAUX = ("NOUN", "PROPN", "PRON", "DET", "ADJ", "NUM")
+
+
+def participium(p):
+    """Participe employé seul, hors périphrases (avec aux ou cop), ablatif absolu, racine et conjoint ;
+    l'adjectif verbal et le gérondif (que ITTB et Perseus codent Part + Aspect=Prosp) sont laissés de
+    côté. Analyse : relation du participe et catégorie de sa tête."""
+    for m in p["mots"]:
+        f = m["feats"]
+        if f.get("VerbForm") != "Part" or (f.get("Aspect") == "Prosp" and f.get("Voice") != "Act"):
+            continue
+        if m["rel"] in ("root", "advcl:abs") or m["rel"].startswith("conj"):
+            continue
+        if any(k["rel"] == "cop" or k["rel"].startswith("aux") for k in enfants(p, m)):
+            continue
+        h = par_id(p, m["tete"])
+        sur = "@surnom" if h["upos"] in NOMINAUX else "@surverbe" if h["upos"] in ("VERB", "AUX") else h["upos"]
+        yield f"{m['rel']} → {sur}", [m["id"], h["id"]], m["rel"] in ("acl", "amod", "advcl", "advcl:pred")
+
+
 PHENOMENES = {
     "copula": copula,
     "ablativus-absolutus": ablativus_absolutus,
@@ -268,6 +318,8 @@ PHENOMENES = {
     "coordinatio": coordinatio,
     "sine-verbo": sine_verbo,
     "ellipsis": ellipsis,
+    "obliqui": obliqui,
+    "participium": participium,
 }
 
 # Exemples supplémentaires, pour une analyse qui n'est pas la plus fréquente du treebank mais que la
@@ -275,6 +327,7 @@ PHENOMENES = {
 SUPPLEMENTS = {
     "sine-verbo": [("CIRCSE", "@tete : NOUN Dat", lambda p: "Tacitus" in p["sent_id"])],
     "ellipsis": [("CIRCSE", "orphan → root (@premier)", lambda p: "Tacitus" in p["sent_id"])],
+    "participium": [("Perseus", "amod → @surnom", lambda p: p["sent_id"].startswith("phi0474.phi013"))],
 }
 
 
@@ -391,7 +444,7 @@ def svg_proiel(phrase, cibles):
 # --- Écriture des fragments ----------------------------------------------------------------------
 
 def libelle(analyse, t):
-    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule"):
+    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule", "@surnom", "@surverbe"):
         analyse = analyse.replace(cle, t[cle])
     return analyse.replace("|", "/")
 
