@@ -3,7 +3,7 @@
 Un wiki comparatif des normes d'annotation du latin (lemmatisation, morphologie, syntaxe en dépendances), avec des exemples tirés des treebanks.
 *A comparative wiki of Latin annotation standards, with examples drawn from the treebanks.*
 
-Site : <https://jderet.github.io/regulae-latine-adnotandi/> (français et anglais)
+Site : <https://julesderet.fr/regulae-latine-adnotandi/> (français et anglais)
 
 ## Contenu
 
