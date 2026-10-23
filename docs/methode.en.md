@@ -23,7 +23,7 @@ For each treebank, the example is drawn from the sentences that follow **that tr
 3. where the phenomenon appears in its most typical form (for the copula, for instance, a predicate adjective with an overt subject);
 4. the one closest to 9 words; on a tie, the first by identifier.
 
-The choice is therefore deterministic: running the script again gives the same examples. For Perseus and PROIEL, only a sentence present in the original format can be chosen, and its original analysis is shown below it.
+The choice is therefore deterministic: running the script again gives the same examples. When a page discusses an analysis that is not the most frequent one in its treebank (Tacitus's *Germania* in CIRCSE, for instance), the script adds an example of that analysis, chosen by the same criteria (`SUPPLEMENTS` in the script). For Perseus and PROIEL, only a sentence present in the original format can be chosen, and its original analysis is shown below it.
 
 The translations of the chosen sentences are made by hand and stored in `scripts/traductions.tsv` (treebank, `sent_id`, French, English). If an example changes, its translation is missing until it is added.
 

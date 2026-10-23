@@ -13,7 +13,7 @@
 | [PROIEL](../normes/proiel.md) | ***sum*** (`pred`) | tête | `xobj`, avec une arête secondaire `xsub` vers le sujet | *sum* tête, adjectif verbal `xobj` |
 | [adnotationes-latinae](../normes/adnotationes.md) | attribut | `cop` | tête | adjectif verbal tête, *sum* `aux:pass` |
 
-UD renverse donc l'analyse des formats d'origine : là où le LDT et PROIEL font de *sum* le prédicat, UD le traite comme un mot grammatical qui dépend de l'attribut. Ce choix, commun à toutes les langues UD, aligne le latin sur les langues sans copule exprimée (*omnia praeclara rara*).
+UD renverse donc l'analyse des formats d'origine : là où le LDT et PROIEL font de *sum* le prédicat, UD le traite comme un mot grammatical qui dépend de l'attribut. Ce choix, commun à toutes les langues UD, aligne le latin sur les langues sans copule exprimée (*omnia praeclara rara*) : la proposition sans *sum* a la même tête que la proposition copulative. Voir la fiche [Proposition sans verbe](sine-verbo.md).
 
 ### Ce qui varie entre les treebanks UD
 

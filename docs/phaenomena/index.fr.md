@@ -16,6 +16,8 @@ Chaque fiche suit le même plan :
 | [Proposition infinitive](accusativus-cum-infinitivo.md) | `ccomp` ou `csubj` ; `xcomp` ou `ccomp` après *iubeo*, *sino* |
 | [Gérondif et adjectif verbal](gerundium-gerundivum.md) | distinction morphologique ; préposition `case` ou `mark` |
 | [Coordination par *-que*](coordinatio.md) | découpage ; rattachement à l'hôte ou à la tête du conjoint ; *neque* |
+| [Proposition sans verbe](sine-verbo.md) | tête quand l'attribut est au datif, au génitif ou adverbe ; nœud vide de PROIEL, `ExD` du LDT |
+| [Ellipse du verbe](ellipsis.md) | `orphan` ou nœud vide ; verbe absent du premier membre ; ellipse hors coordination |
 
 ## À venir
 
@@ -25,7 +27,6 @@ Chaque fiche suit le même plan :
 - Complément d'agent et datif d'agent (`obl:agent`)
 - Prédicatif (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
 - Discours rapporté : *inquit*, discours direct (`parataxis:reporting`, `ccomp:reported`)
-- Ellipse et gapping (`orphan`, nœuds vides de PROIEL, `ExD` du LDT)
 - Lieu et temps (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Déterminants et pronoms (`DET` ou `PRON` pour *hic*, *ille*, *is*)
 - Particules de discours (*nam*, *enim*, *autem*, *quidem*)

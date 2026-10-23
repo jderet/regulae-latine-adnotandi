@@ -23,7 +23,7 @@ Pour chaque treebank, l'exemple est tiré parmi les phrases qui suivent **l'anal
 3. où le phénomène se présente sous sa forme la plus typique (par exemple, pour la copule, un attribut adjectif avec un sujet exprimé) ;
 4. la plus proche de 9 mots ; à égalité, la première dans l'ordre des identifiants.
 
-Le choix est donc déterministe : relancer le script donne les mêmes exemples. Pour Perseus et PROIEL, seule une phrase présente dans le format d'origine peut être retenue, et son analyse d'origine est affichée en dessous.
+Le choix est donc déterministe : relancer le script donne les mêmes exemples. Quand une fiche discute une analyse qui n'est pas la plus fréquente de son treebank (la *Germanie* de Tacite dans CIRCSE, par exemple), le script ajoute un exemple de cette analyse, choisi selon les mêmes critères (`SUPPLEMENTS` dans le script). Pour Perseus et PROIEL, seule une phrase présente dans le format d'origine peut être retenue, et son analyse d'origine est affichée en dessous.
 
 Les traductions des phrases retenues sont faites à la main et rangées dans `scripts/traductions.tsv` (treebank, `sent_id`, français, anglais). Si un exemple change, sa traduction manque jusqu'à ce qu'on l'ajoute.
 

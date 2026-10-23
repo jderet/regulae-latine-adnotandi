@@ -16,6 +16,8 @@ Every page follows the same plan:
 | [Accusative and infinitive](accusativus-cum-infinitivo.md) | `ccomp` or `csubj`; `xcomp` or `ccomp` after *iubeo*, *sino* |
 | [Gerund and gerundive](gerundium-gerundivum.md) | morphological distinction; preposition `case` or `mark` |
 | [Coordination with *-que*](coordinatio.md) | splitting; attachment to the host or to the head of the conjunct; *neque* |
+| [Verbless clauses](sine-verbo.md) | head when the predicate is a dative, a genitive or an adverb; PROIEL empty node, LDT `ExD` |
+| [Verb ellipsis](ellipsis.md) | `orphan` or empty node; verb missing from the first conjunct; ellipsis outside coordination |
 
 ## Coming next
 
@@ -25,7 +27,6 @@ Every page follows the same plan:
 - Agent and dative of agent (`obl:agent`)
 - Predicative (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
 - Reported speech: *inquit*, direct speech (`parataxis:reporting`, `ccomp:reported`)
-- Ellipsis and gapping (`orphan`, PROIEL empty nodes, LDT `ExD`)
 - Place and time (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Determiners and pronouns (`DET` or `PRON` for *hic*, *ille*, *is*)
 - Discourse particles (*nam*, *enim*, *autem*, *quidem*)

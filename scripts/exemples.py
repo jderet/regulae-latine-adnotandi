@@ -36,14 +36,18 @@ TEXTES = {
            "aucun": "Aucun exemple trouvé dans ce treebank.", "vide": "nœud vide", "norme": "page de la norme",
            "secondaire": "en pointillés sous la ligne : arêtes secondaires (slash) de PROIEL",
            "@hote": "hôte", "@autre": "autre mot", "@tete": "tête",
-           "@part": "part.", "@nom": "nom", "@inf": "inf.", "@acc": "acc."},
+           "@part": "part.", "@nom": "nom", "@inf": "inf.", "@acc": "acc.",
+           "@premier": "premier membre", "@suivant": "membre suivant", "@seule": "proposition seule",
+           "supplement": "autre analyse"},
     "en": {"dp": ":", "phrase": "sentence", "freq_tb": "Treebank", "freq_n": "Occurrences", "freq_an": "Most frequent analyses",
            "source": "Source", "licence": "licence", "conllu": "CoNLL-U lines",
            "natif": "The same sentence in the original format", "natif_lignes": "Lines of the original file",
            "aucun": "No example found in this treebank.", "vide": "empty node", "norme": "standard page",
            "secondaire": "dotted, below the line: PROIEL secondary edges (slashes)",
            "@hote": "host", "@autre": "other word", "@tete": "head",
-           "@part": "part.", "@nom": "noun", "@inf": "inf.", "@acc": "acc."},
+           "@part": "part.", "@nom": "noun", "@inf": "inf.", "@acc": "acc.",
+           "@premier": "first conjunct", "@suivant": "later conjunct", "@seule": "standalone clause",
+           "supplement": "another analysis"},
 }
 
 
@@ -211,12 +215,66 @@ def coordinatio(p):
                tete["rel"].startswith("conj"))
 
 
+PROPOSITIONS = ("root", "conj", "parataxis", "ccomp", "csubj", "advcl", "acl")
+
+
+def sine_verbo(p):
+    """Proposition sans verbe ni sum (omnia praeclara rara) : un mot qui n'est ni verbe ni auxiliaire,
+    sans cop ni aux, a un sujet nsubj et occupe une place de proposition. L'ablatif absolu nominal
+    (Caesare duce) est laissé de côté. L'analyse est la catégorie de la tête, et son cas s'il n'est
+    pas le nominatif."""
+    for m in p["mots"]:
+        if m["upos"] in ("VERB", "AUX") or m["rel"] == "advcl:abs" or m["rel"].split(":")[0] not in PROPOSITIONS:
+            continue
+        ch = enfants(p, m)
+        if any(k["rel"] == "cop" or k["rel"].startswith("aux") for k in ch):
+            continue
+        sujets = [k for k in ch if k["rel"] == "nsubj"]
+        if not sujets:
+            continue
+        # Verbe écrit dans un membre suivant qui partage le sujet (robustius sed minus refundet) :
+        # c'est l'ellipse d'un verbe plein, non une proposition sans verbe.
+        if any(k["rel"].startswith("conj") and k["upos"] == "VERB"
+               and not any(x["rel"].startswith("nsubj") for x in enfants(p, k)) for k in ch):
+            continue
+        cas = m["feats"].get("Case", "Nom")
+        tete = m["upos"] + (f" {cas}" if m["upos"] != "ADV" and cas != "Nom" else "")
+        yield (f"@tete : {tete}", [m["id"], sujets[0]["id"]],
+               m["rel"] == "root" and m["upos"] == "ADJ" and sujets[0]["upos"] == "NOUN")
+
+
+def ellipsis(p):
+    """Ellipse du verbe : chaque mot qui porte des orphan (le reste promu tête de la proposition
+    elliptique), avec la place de cette proposition : premier membre d'une coordination dont un membre
+    suivant a le verbe, membre suivant (conj), proposition seule (racine sans conj), ou autre relation."""
+    for h in p["mots"]:
+        orphelins = [k for k in enfants(p, h) if k["rel"] == "orphan"]
+        if not orphelins:
+            continue
+        if h["rel"] == "root":
+            place = "root (@premier)" if any(k["rel"].startswith("conj") for k in enfants(p, h)) else "root (@seule)"
+        elif h["rel"].startswith("conj"):
+            place = "conj (@suivant)"
+        else:
+            place = h["rel"]
+        yield f"orphan → {place}", [h["id"]] + [k["id"] for k in orphelins], h["upos"] in ("NOUN", "PROPN")
+
+
 PHENOMENES = {
     "copula": copula,
     "ablativus-absolutus": ablativus_absolutus,
     "accusativus-cum-infinitivo": accusativus_cum_infinitivo,
     "gerundium-gerundivum": gerundium_gerundivum,
     "coordinatio": coordinatio,
+    "sine-verbo": sine_verbo,
+    "ellipsis": ellipsis,
+}
+
+# Exemples supplémentaires, pour une analyse qui n'est pas la plus fréquente du treebank mais que la
+# fiche discute : (treebank, analyse, filtre sur la phrase).
+SUPPLEMENTS = {
+    "sine-verbo": [("CIRCSE", "@tete : NOUN Dat", lambda p: "Tacitus" in p["sent_id"])],
+    "ellipsis": [("CIRCSE", "orphan → root (@premier)", lambda p: "Tacitus" in p["sent_id"])],
 }
 
 
@@ -333,7 +391,7 @@ def svg_proiel(phrase, cibles):
 # --- Écriture des fragments ----------------------------------------------------------------------
 
 def libelle(analyse, t):
-    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc"):
+    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule"):
         analyse = analyse.replace(cle, t[cle])
     return analyse.replace("|", "/")
 
@@ -369,6 +427,7 @@ def lignes_proiel(phrase):
 
 def ecrire(slug, tbs, ldt, proiel, tr):
     fonction = PHENOMENES[slug]
+    supplements = SUPPLEMENTS.get(slug, [])
     stats = {}
     for tb in TREEBANKS:
         c = collections.Counter()
@@ -408,34 +467,45 @@ def ecrire(slug, tbs, ldt, proiel, tr):
             if p is None:
                 out.append(f"{t['aucun']}\n")
                 continue
-            out.append(f"> {html.escape(p['texte'])}\n")
-            out.append(traduction(tr, tb, p["sent_id"], langue))
-            out.append(f"{t['source']}{t['dp']} UD_Latin-{tb} r2.18, {citation(p)} — {t['licence']} {LICENCES[tb]} "
-                       f"— [{t['norme']}](../normes/{PAGES[tb]}.md)\n")
-            out.append(f'<div class="arbre-cadre">{svg_ud(p, cibles)}</div>\n')
-            out.append(bloc(t["conllu"], p["lignes"]))
-            if tb == "Perseus":
-                cle = tuple(p["sent_id"].split("@"))
-                nat = ldt[cle]
-                ids = [str(i) for i in cibles] if len(nat["mots"]) == len(p["mots"]) else []
-                out.append(f"#### {t['natif']}{t['dp']} LDT 2.1\n")
-                out.append(f"{t['source']}{t['dp']} Latin Dependency Treebank 2.1, `{cle[0]}`, {t['phrase']} {cle[1]}"
-                           f" ({nat['subdoc']}) — {t['licence']} {LICENCES['LDT']} — [{t['norme']}](../normes/ldt.md)\n")
-                out.append(f'<div class="arbre-cadre">{svg_ldt(nat, ids)}</div>\n')
-                out.append(bloc(t["natif_lignes"], lignes_ldt(nat)))
-            if tb == "PROIEL":
-                nat = proiel[p["sent_id"]]
-                reels = [x["id"] for x in nat["tokens"] if not x["vide"]]
-                ids = [reels[i - 1] for i in cibles if i <= len(reels)] if len(reels) == len(p["mots"]) else []
-                out.append(f"#### {t['natif']}{t['dp']} PROIEL\n")
-                out.append(f"{t['source']}{t['dp']} PROIEL treebank, `{nat['fichier']}`, {t['phrase']} {p['sent_id']}"
-                           f" ({nat['titre']}) — {t['licence']} {LICENCES['PROIEL natif']} "
-                           f"— [{t['norme']}](../normes/proiel.md). ∅ = {t['vide']}{';' if t['dp'] == ':' else ' ;'} {t['secondaire']}.\n")
-                out.append(f'<div class="arbre-cadre">{svg_proiel(nat, ids)}</div>\n')
-                out.append(bloc(t["natif_lignes"], lignes_proiel(nat)))
+            exemple(out, tb, p, cibles, t, langue, ldt, proiel, tr)
+        for tb, analyse, filtre in supplements:
+            p, cibles = choisir([q for q in tbs[tb] if filtre(q)], fonction, analyse)
+            if p is not None:
+                out.append(f"### {tb}{t['dp']} {t['supplement']} (`{libelle(analyse, t)}`)\n")
+                exemple(out, tb, p, cibles, t, langue, ldt, proiel, tr)
         with open(os.path.join(SORTIE, f"{slug}-exemples.{langue}.md"), "w", encoding="utf-8") as f:
             f.write("\n".join(out))
     return {tb: (exemples[tb][0] or {}).get("sent_id") for tb in TREEBANKS}
+
+
+def exemple(out, tb, p, cibles, t, langue, ldt, proiel, tr):
+    """Une phrase UD : texte, traduction, source, arbre, lignes CoNLL-U et, pour Perseus et PROIEL, la
+    même phrase dans son format d'origine."""
+    out.append(f"> {html.escape(p['texte'])}\n")
+    out.append(traduction(tr, tb, p["sent_id"], langue))
+    out.append(f"{t['source']}{t['dp']} UD_Latin-{tb} r2.18, {citation(p)} — {t['licence']} {LICENCES[tb]} "
+               f"— [{t['norme']}](../normes/{PAGES[tb]}.md)\n")
+    out.append(f'<div class="arbre-cadre">{svg_ud(p, cibles)}</div>\n')
+    out.append(bloc(t["conllu"], p["lignes"]))
+    if tb == "Perseus":
+        cle = tuple(p["sent_id"].split("@"))
+        nat = ldt[cle]
+        ids = [str(i) for i in cibles] if len(nat["mots"]) == len(p["mots"]) else []
+        out.append(f"#### {t['natif']}{t['dp']} LDT 2.1\n")
+        out.append(f"{t['source']}{t['dp']} Latin Dependency Treebank 2.1, `{cle[0]}`, {t['phrase']} {cle[1]}"
+                   f" ({nat['subdoc']}) — {t['licence']} {LICENCES['LDT']} — [{t['norme']}](../normes/ldt.md)\n")
+        out.append(f'<div class="arbre-cadre">{svg_ldt(nat, ids)}</div>\n')
+        out.append(bloc(t["natif_lignes"], lignes_ldt(nat)))
+    if tb == "PROIEL":
+        nat = proiel[p["sent_id"]]
+        reels = [x["id"] for x in nat["tokens"] if not x["vide"]]
+        ids = [reels[i - 1] for i in cibles if i <= len(reels)] if len(reels) == len(p["mots"]) else []
+        out.append(f"#### {t['natif']}{t['dp']} PROIEL\n")
+        out.append(f"{t['source']}{t['dp']} PROIEL treebank, `{nat['fichier']}`, {t['phrase']} {p['sent_id']}"
+                   f" ({nat['titre']}) — {t['licence']} {LICENCES['PROIEL natif']} "
+                   f"— [{t['norme']}](../normes/proiel.md). ∅ = {t['vide']}{';' if t['dp'] == ':' else ' ;'} {t['secondaire']}.\n")
+        out.append(f'<div class="arbre-cadre">{svg_proiel(nat, ids)}</div>\n')
+        out.append(bloc(t["natif_lignes"], lignes_proiel(nat)))
 
 
 def main():

@@ -13,7 +13,7 @@
 | [PROIEL](../normes/proiel.md) | ***sum*** (`pred`) | head | `xobj`, with a secondary `xsub` edge to the subject | *sum* is the head, gerundive `xobj` |
 | [adnotationes-latinae](../normes/adnotationes.md) | predicate | `cop` | head | gerundive is the head, *sum* is `aux:pass` |
 
-UD thus reverses the analysis of the original formats: where the LDT and PROIEL make *sum* the predicate, UD treats it as a function word that depends on the predicate. This choice, shared by all UD languages, aligns Latin with languages that have no overt copula (*omnia praeclara rara*).
+UD thus reverses the analysis of the original formats: where the LDT and PROIEL make *sum* the predicate, UD treats it as a function word that depends on the predicate. This choice, shared by all UD languages, aligns Latin with languages that have no overt copula (*omnia praeclara rara*): a clause without *sum* has the same head as a copular clause. See [Verbless clauses](sine-verbo.md).
 
 ### What varies between UD treebanks
 

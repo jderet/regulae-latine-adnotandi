@@ -20,7 +20,7 @@ For UD_Latin-Perseus and UD_Latin-PROIEL, the same sentence is also shown **in i
 
 ## Status
 
-This is the first version, with five pages: [copula](phaenomena/copula.md), [ablative absolute](phaenomena/ablativus-absolutus.md), [accusative and infinitive](phaenomena/accusativus-cum-infinitivo.md), [gerund and gerundive](phaenomena/gerundium-gerundivum.md), and [coordination with -que](phaenomena/coordinatio.md). The planned pages are listed under [Phenomena](phaenomena/index.md). Corrections and suggestions are welcome as issues or pull requests on [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
+Seven pages so far: [copula](phaenomena/copula.md), [ablative absolute](phaenomena/ablativus-absolutus.md), [accusative and infinitive](phaenomena/accusativus-cum-infinitivo.md), [gerund and gerundive](phaenomena/gerundium-gerundivum.md), [coordination with -que](phaenomena/coordinatio.md), [verbless clauses](phaenomena/sine-verbo.md) and [verb ellipsis](phaenomena/ellipsis.md). The planned pages are listed under [Phenomena](phaenomena/index.md). Corrections and suggestions are welcome as issues or pull requests on [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
 
 ## Licence
 

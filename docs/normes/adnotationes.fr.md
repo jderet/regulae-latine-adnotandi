@@ -8,6 +8,7 @@ Le projet *adnotationes-latinae* annote automatiquement l'ensemble du corpus lat
 - Les relations : `advcl:abs` pour l'ablatif absolu (le participe tête, le nom `nsubj` ou `nsubj:pass`), `advcl:pred` pour le prédicatif, `obl:arg` pour tout oblique régi (le datif de *parco* comme le destinataire de *do*), `obl:agent` (y compris le datif d'agent), les relatives sans antécédent en `:relcl`, `ccomp:reported` et `parataxis:reporting`.
 - La copule : seul *sum* est `cop`. *fio*, *uideor*, *appellor* sont des verbes pleins, et leur attribut est `xcomp`. Dans la périphrase obligative (*delenda est*), *sum* est `aux:pass`.
 - La coordination : *-que* est `cc` sur la tête du conjoint qui le porte ; les enclitiques sont des mots multi-tokens.
+- L'ellipse : la [proposition sans verbe](../phaenomena/sine-verbo.md) est analysée comme si *sum* était écrit, l'attribut tête, même au datif, au génitif ou adverbe (*hic Suebiae finis* : *hic*) ; dans l'[ellipse du verbe](../phaenomena/ellipsis.md), le reste le plus central est tête et les autres `orphan`, y compris quand le verbe manque dans le premier membre (*raro armis nostris, saepius pecunia iuuantur* : *armis* racine, *iuuantur* `conj`). Ces deux règles, suivies par CIRCSE dans la *Germanie*, ont été écrites dans la norme après un essai sur Tacite.
 
 ## Ce qui s'en écarte
 
@@ -15,6 +16,7 @@ Le projet *adnotationes-latinae* annote automatiquement l'ensemble du corpus lat
 |---|---|---|
 | Graphie des lemmes | u, i (*uenio*, *iam*) | v, j consonantiques, comme le Lewis & Short (*venio*, *jam*) ; la chaîne travaille en u/i et ne convertit qu'à la publication |
 | Noms propres | minuscule (*cocytus*) | majuscule (*Cocytus*), comme le dictionnaire |
+| Peuples | pluriel (*chatti*) ; PROPN chez Sénèque, NOUN chez Tacite | singulier (*Chattus*), avec `LS=` vers l'article du pluriel ; toujours PROPN |
 | Référence lexicale | lexique du LASLA | vedettes du Lewis & Short, avec `LS=` (identifiant d'article) et `LiLa=` (lemme de la *Lemma Bank*) en MISC ; `Gaffiot=` pour les mots absents du L&S |
 | Comparatifs, superlatifs | positif | positif aussi (*maior* → *magnus*) ; le Gaffiot nomme en MISC les degrés qui ont une vedette à part |
 | Ponctuation | absente | présente (`punct`), règles UD écrites dans la norme |
@@ -22,6 +24,20 @@ Le projet *adnotationes-latinae* annote automatiquement l'ensemble du corpus lat
 | Abréviations | — | point collé au mot ; lemme développé (*M.* → *Marcus*), `Abbr=Yes` |
 | Lieu figuré | — | `obl`, avec `LocFig=Yes` en MISC (*in animo*) |
 | Prodélision | — | *certumst* découpé en *certum* + *st* (lemme *sum*) |
+
+## Les deux conventions de CIRCSE
+
+CIRCSE n'annote pas la *Germanie* de Tacite comme les tragédies de Sénèque (voir [CIRCSE](circse.md#deux-conventions-seneque-et-tacite)). La norme suit partout celle de Sénèque, qui couvre 80 % du treebank :
+
+| Point | Sénèque et adnotationes-latinae | Tacite |
+|---|---|---|
+| Traits | `AdpType=Prep`, `Degree=Pos` marqué, pas d'`AdvType` | ni `AdpType` ni, le plus souvent, `Degree` ; `AdvType` fréquent |
+| Peuples, *Oceanus*, *Penates* | PROPN | NOUN |
+| *is, ea, id* | DET, comme les autres démonstratifs (Sénèque n'en a que 4, partagés) | PRON |
+| *et* « aussi, même » | ADV | CCONJ |
+| *ceterus*, *unus* | ADJ, NUM | DET |
+
+Les scores calculés sur la partie de Tacite comptent donc comme erreurs des écarts de convention : la chaîne ne peut y dépasser 79 % d'accord sur les traits (98 % sur Sénèque).
 
 ## Statut
 
