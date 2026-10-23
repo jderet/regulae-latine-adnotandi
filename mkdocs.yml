@@ -1,0 +1,112 @@
+site_name: Regulae Latine adnotandi
+site_description: Les normes d'annotation syntaxique et morphologique du latin, comparées sur exemples.
+site_url: https://jderet.github.io/regulae-latine-adnotandi/
+repo_url: https://github.com/jderet/regulae-latine-adnotandi
+repo_name: jderet/regulae-latine-adnotandi
+edit_uri: edit/main/docs/
+copyright: Textes et exemples sous licence CC BY-NC-SA 4.0 — code sous licence MIT
+
+theme:
+  name: material
+  language: fr
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - content.action.edit
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Mode clair
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/arbres.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path: [generes]
+      check_paths: true
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      languages:
+        - locale: fr
+          name: Français
+          default: true
+          build: true
+        - locale: en
+          name: English
+          build: true
+          site_description: Latin syntactic and morphological annotation standards, compared on examples.
+          nav_translations:
+            Accueil: Home
+            Normes: Standards
+            Phénomènes: Phenomena
+            Treebanks UD: UD treebanks
+            Formats d'origine: Original formats
+            Lexique et morphologie: Lexicon and morphology
+            Méthode: Method
+
+nav:
+  - Accueil: index.md
+  - Normes:
+      - normes/index.md
+      - Treebanks UD:
+          - normes/ud.md
+          - normes/circse.md
+          - normes/perseus.md
+          - normes/proiel-ud.md
+          - normes/ittb.md
+          - normes/llct.md
+          - normes/udante.md
+      - Formats d'origine:
+          - normes/ldt.md
+          - normes/proiel.md
+          - normes/it-tb.md
+      - Lexique et morphologie:
+          - normes/lasla.md
+          - normes/lila.md
+          - normes/collatinus.md
+          - normes/evalatin.md
+      - normes/adnotationes.md
+  - Phénomènes:
+      - phaenomena/index.md
+      - phaenomena/copula.md
+      - phaenomena/ablativus-absolutus.md
+      - phaenomena/accusativus-cum-infinitivo.md
+      - phaenomena/gerundium-gerundivum.md
+      - phaenomena/coordinatio.md
+  - Méthode: methode.md

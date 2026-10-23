@@ -1,0 +1,45 @@
+/* Arbres de dépendances produits par scripts/exemples.py */
+.arbre-cadre {
+  overflow-x: auto;
+  margin: 0.6em 0 1em;
+  padding: 0.4em 0;
+}
+.arbre {
+  font-family: var(--md-text-font-family), sans-serif;
+  max-width: none;
+}
+.arbre .forme {
+  font-size: 13px;
+  fill: var(--md-default-fg-color);
+}
+.arbre .forme.cible {
+  font-weight: 700;
+  fill: var(--md-accent-fg-color);
+}
+[data-md-color-scheme="default"] .arbre .forme.cible {
+  fill: #b25e00;
+}
+.arbre .sous {
+  font-size: 10px;
+  fill: var(--md-default-fg-color--light);
+}
+.arbre .rel {
+  font-size: 10.5px;
+  fill: var(--md-default-fg-color);
+}
+.arbre .fond {
+  fill: var(--md-default-bg-color);
+  stroke: var(--md-default-fg-color--lighter);
+  stroke-width: 0.6;
+}
+.arbre .arc {
+  fill: none;
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1;
+}
+.arbre .arc.secondaire {
+  stroke-dasharray: 3 3;
+}
+.arbre .pointe {
+  fill: var(--md-default-fg-color--light);
+}
