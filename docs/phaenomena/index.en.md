@@ -22,12 +22,14 @@ Every page follows the same plan:
 | [Participles](participium.md) | `acl` on the noun or `advcl` on the verb; `amod`, `nmod`; `advcl:pred` |
 | [Relative clauses](relativa.md) | `acl:relcl` or `acl`; free relatives with or without `:relcl`; connecting relative |
 | [Completive *ut* clauses](ut-completiva.md) | `ccomp` or `advcl` after verbs of asking, ordering and fearing |
+| [Predicative adjectives](praedicatiuum.md) | `advcl:pred` or `xcomp`; attachment to the verb or the noun |
+| [Adjectives and participles used as nouns](substantiuum.md) | NOUN under the dictionary noun, or ADJ / VERB under the source word |
 
 ## Coming next
 
 - Comparison: *quam*, ablative of comparison (`obl:cmp`, `advcl:cmp`)
 - Agent and dative of agent (`obl:agent`)
-- Predicative adjectives and object complements (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
+- Object complements (`xcomp`, `OCOMP`, `xobj`)
 - Reported speech: *inquit*, direct speech (`parataxis:reporting`, `ccomp:reported`)
 - Place and time (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Determiners and pronouns (`DET` or `PRON` for *hic*, *ille*, *is*)

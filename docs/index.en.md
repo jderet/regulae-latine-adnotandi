@@ -20,7 +20,7 @@ For UD_Latin-Perseus and UD_Latin-PROIEL, the same sentence is also shown **in i
 
 ## Status
 
-Eleven pages so far: [copula](phaenomena/copula.md), [ablative absolute](phaenomena/ablativus-absolutus.md), [accusative and infinitive](phaenomena/accusativus-cum-infinitivo.md), [gerund and gerundive](phaenomena/gerundium-gerundivum.md), [coordination with -que](phaenomena/coordinatio.md), [verbless clauses](phaenomena/sine-verbo.md), [verb ellipsis](phaenomena/ellipsis.md), [governed obliques](phaenomena/obliqui.md), [participles](phaenomena/participium.md), [relative clauses](phaenomena/relativa.md) and [completive ut clauses](phaenomena/ut-completiva.md). The planned pages are listed under [Phenomena](phaenomena/index.md). Corrections and suggestions are welcome as issues or pull requests on [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
+Thirteen pages so far: [copula](phaenomena/copula.md), [ablative absolute](phaenomena/ablativus-absolutus.md), [accusative and infinitive](phaenomena/accusativus-cum-infinitivo.md), [gerund and gerundive](phaenomena/gerundium-gerundivum.md), [coordination with -que](phaenomena/coordinatio.md), [verbless clauses](phaenomena/sine-verbo.md), [verb ellipsis](phaenomena/ellipsis.md), [governed obliques](phaenomena/obliqui.md), [participles](phaenomena/participium.md), [relative clauses](phaenomena/relativa.md), [completive ut clauses](phaenomena/ut-completiva.md), [predicative adjectives](phaenomena/praedicatiuum.md) and [adjectives and participles used as nouns](phaenomena/substantiuum.md). The planned pages are listed under [Phenomena](phaenomena/index.md). Corrections and suggestions are welcome as issues or pull requests on [GitHub](https://github.com/jderet/regulae-latine-adnotandi).
 
 ## Licence
 

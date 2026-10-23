@@ -20,7 +20,7 @@
 
 ## Conventions compared with CIRCSE
 
-UD Perseus and CIRCSE are almost the same size (29,223 and 29,055 words) and both cover classical literature, but they do not annotate in the same way. A parser that follows CIRCSE loses points on Perseus without making real errors. The differences below were found while evaluating the [adnotationes-latinae](adnotationes.md) pipeline on Cicero's *Catilinarians* and Sallust's *Catiline*, then counted over the whole treebank (UD 2.18).
+UD Perseus and CIRCSE are almost the same size (29,223 and 29,055 words) and both cover classical literature, but they do not annotate in the same way. A parser that follows CIRCSE loses points on Perseus without making real errors. The differences below were found while evaluating the [adnotationes-latinae](adnotationes.md) pipeline on Cicero's *Catilinarians*, Sallust's *Catiline* and extracts from Propertius, Phaedrus, Ovid and Virgil, then counted over the whole treebank (UD 2.18).
 
 ### Parts of speech
 
@@ -36,13 +36,17 @@ UD Perseus and CIRCSE are almost the same size (29,223 and 29,055 words) and bot
 | *senex* | ADJ (7), NOUN (5) | NOUN (22) |
 | *ecce* | PART (7) | INTJ (18) |
 | *an*, *quin* | SCONJ (10, 6) | PART (31, 15) |
-| *igitur* | PART `discourse` (15) | split: CCONJ `cc` (2), PART `discourse` (2) |
+| *igitur*, *ergo* | PART `discourse` (15), ADV `discourse` (25) | split: CCONJ `cc` (2), PART `discourse` (2) |
 | *itaque* | lemma *ita*, ADV `advmod` (23 out of 25) | absent |
 | *ne* of split *neque* | ADV `advmod` (90), SCONJ `mark` (10) | *neque* not split |
 | subordinating *quo*, *ubi* | ADV `mark` (9 and 6), otherwise SCONJ | SCONJ `mark` |
 | *quasi* | ADV `advmod` (8), SCONJ (5) | SCONJ |
 | Plural adjectives used as nouns | sometimes NOUN with a lemma of their own: *omnia* (11), *omnes* (8), *multa*, *pauca*; mostly *omnis* DET (81) | DET or ADJ |
 | *Kalendae*, *December* | PROPN | — |
+| *unus* on a noun | ADJ `amod` (15), NUM `nummod` (12) | NUM `nummod` (31) |
+| *inuicem* | PRON (4) | ADV |
+| *o* before a vocative | PART `advmod:emph` (8), INTJ `discourse` (3) | PART `advmod:emph` (36) |
+| Adjectives and participles used as nouns | under the adjective or verb (*malus*, *ferus*, *iubeo*) | NOUN under the noun (*malum*, *fera*); see [Used as nouns](../phaenomena/substantiuum.md) |
 
 ### Lemmas
 
@@ -75,4 +79,7 @@ Perseus's convention is close to that of Tacitus in CIRCSE (see [CIRCSE](circse.
 - **Free relatives**: never a `:relcl` subtype other than `acl:relcl` (*quae mente agitavi, audistis*: `acl:relcl` of *audistis*). See [Relative clauses](../phaenomena/relativa.md).
 - **Completive *ut* and *ne* clauses**: mostly `advcl`, as in CIRCSE. See [Completive *ut* clauses](../phaenomena/ut-completiva.md).
 - **Adverb on a noun**: `nmod` (12 cases: *privatim … liberalitate*); CIRCSE has none.
+- **Predicative adjective**: `xcomp`, attached to the verb or to the noun following the LDT (`AtvV` or `ATV`), almost never `advcl:pred`. See [Predicative adjectives](../phaenomena/praedicatiuum.md).
+- **Copular clause in object position** (*ne solus esset studui*): the predicate head keeps a nominal relation, `obj` (3), where CIRCSE has `advcl` or `ccomp`.
+- **Directional *domum***: `obj` (10), as in CIRCSE (16 `obj`, 3 `obl:lmod`).
 

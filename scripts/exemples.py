@@ -39,6 +39,7 @@ TEXTES = {
            "@part": "part.", "@nom": "nom", "@inf": "inf.", "@acc": "acc.",
            "@premier": "premier membre", "@suivant": "membre suivant", "@seule": "proposition seule",
            "@surnom": "nom", "@surverbe": "verbe", "@liaison": "relatif de liaison",
+           "@propre": "lemme propre", "@origine": "lemme d'origine",
            "supplement": "autre analyse"},
     "en": {"dp": ":", "phrase": "sentence", "freq_tb": "Treebank", "freq_n": "Occurrences", "freq_an": "Most frequent analyses",
            "source": "Source", "licence": "licence", "conllu": "CoNLL-U lines",
@@ -49,6 +50,7 @@ TEXTES = {
            "@part": "part.", "@nom": "noun", "@inf": "inf.", "@acc": "acc.",
            "@premier": "first conjunct", "@suivant": "later conjunct", "@seule": "standalone clause",
            "@surnom": "noun", "@surverbe": "verb", "@liaison": "connecting relative",
+           "@propre": "own lemma", "@origine": "source lemma",
            "supplement": "another analysis"},
 }
 
@@ -357,6 +359,56 @@ def ut_completiva(p):
             yield m["rel"], [h["id"], mk[0]["id"], m["id"]], h["feats"].get("VerbForm") == "Fin"
 
 
+# Verbes dont l'adjectif attribut (du sujet ou de l'objet) n'est pas un prédicatif libre.
+ATTRIBUTIFS = {"sum", "fio", "uideor", "maneo", "appello", "uoco", "nomino", "dico", "existimo", "puto", "iudico",
+               "habeo", "reddo", "facio", "efficio", "creo", "declaro", "duco", "nascor", "euado", "exsisto",
+               "praesto", "ostendo", "sentio", "inuenio", "relinquo", "reputo", "aestimo", "arbitror", "credo",
+               "nuncupo", "censeo", "appareo", "uideo"}
+
+
+def praedicatiuum(p):
+    """Adjectif prédicatif libre (laetus uenit, abeunt securi) : un ADJ en advcl:pred, xcomp, advcl ou acl
+    (amod, l'épithète, est laissé de côté), sans copule, dont la tête n'est pas un verbe attributif
+    (ATTRIBUTIFS). Analyse : relation et catégorie de la tête."""
+    for m in p["mots"]:
+        if m["upos"] != "ADJ" or m["rel"] not in ("advcl:pred", "xcomp", "advcl", "acl"):
+            continue
+        h = par_id(p, m["tete"])
+        if u_i(h["lemme"]) in ATTRIBUTIFS or any(k["rel"] == "cop" for k in enfants(p, m)):
+            continue
+        sur = "@surnom" if h["upos"] in NOMINAUX else "@surverbe" if h["upos"] in ("VERB", "AUX") else h["upos"]
+        yield f"{m['rel']} → {sur}", [m["id"], h["id"]], h["upos"] == "VERB" and m["feats"].get("Case") == "Nom"
+
+
+# Adjectifs et participes employés comme noms, avec le nom que donne le dictionnaire : {nom: mot d'origine}.
+SUBSTANTIVES = {"malum": "malus", "bonum": "bonus", "fera": "ferus", "superi": "superus", "planum": "planus", "cauum": "cauus", "penetrale": "penetralis",
+                "natus": "nascor", "monitum": "moneo", "iussum": "iubeo", "mandatum": "mando", "debitum": "debeo"}
+ORIGINES = {v: [n for n in SUBSTANTIVES if SUBSTANTIVES[n] == v] for v in SUBSTANTIVES.values()}
+
+
+def substantiuum(p):
+    """Adjectif ou participe substantivé (mali « le mal », ferae « les bêtes », iussa, natus « fils ») : un
+    mot de SUBSTANTIVES, employé comme nom (argument, nmod ou conj, non amod, det ni acl), dont la forme
+    convient au nom. Analyse : catégorie, et lemme du nom (propre) ou du mot d'origine."""
+    for m in p["mots"]:
+        l = u_i(m["lemme"])
+        if m["upos"] == "ADV" or m["rel"].split(":")[0] not in ("nsubj", "obj", "obl", "iobj", "nmod", "conj", "vocative",
+                                                                "appos"):
+            continue
+        if l in SUBSTANTIVES:
+            nom, cle = l, "@propre"
+        elif l in ORIGINES:
+            cle = "@origine"
+            nom = next((n for n in ORIGINES[l] if u_i(m["forme"]).startswith(n[:-2])), None)
+            if nom is None:
+                continue
+        else:
+            continue
+        if any(k["rel"] in ("amod", "det") and k["upos"] == "NOUN" for k in enfants(p, m)):
+            continue
+        yield f"{m['upos']} @{cle[1:]}", [m["id"]], m["upos"] != "VERB"
+
+
 PHENOMENES = {
     "copula": copula,
     "ablativus-absolutus": ablativus_absolutus,
@@ -369,6 +421,8 @@ PHENOMENES = {
     "participium": participium,
     "relativa": relativa,
     "ut-completiva": ut_completiva,
+    "praedicatiuum": praedicatiuum,
+    "substantiuum": substantiuum,
 }
 
 # Exemples supplémentaires, pour une analyse qui n'est pas la plus fréquente du treebank mais que la
@@ -378,6 +432,7 @@ SUPPLEMENTS = {
     "ellipsis": [("CIRCSE", "orphan → root (@premier)", lambda p: "Tacitus" in p["sent_id"])],
     "participium": [("Perseus", "amod → @surnom", lambda p: p["sent_id"].startswith("phi0474.phi013"))],
     "relativa": [("Perseus", "acl:relcl → @surverbe", lambda p: p["sent_id"].startswith("phi0631.phi001"))],
+    "praedicatiuum": [("Perseus", "xcomp → @surnom", lambda p: p["sent_id"].startswith("phi0975.phi001"))],
 }
 
 
@@ -494,7 +549,7 @@ def svg_proiel(phrase, cibles):
 # --- Écriture des fragments ----------------------------------------------------------------------
 
 def libelle(analyse, t):
-    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule", "@surnom", "@surverbe", "@liaison"):
+    for cle in ("@hote", "@autre", "@tete", "@part", "@nom", "@inf", "@acc", "@premier", "@suivant", "@seule", "@surnom", "@surverbe", "@liaison", "@propre", "@origine"):
         analyse = analyse.replace(cle, t[cle])
     return analyse.replace("|", "/")
 

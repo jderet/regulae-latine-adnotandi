@@ -22,12 +22,14 @@ Chaque fiche suit le même plan :
 | [Participe](participium.md) | `acl` sur le nom ou `advcl` sur le verbe ; `amod`, `nmod` ; `advcl:pred` |
 | [Relative](relativa.md) | `acl:relcl` ou `acl` ; relative sans antécédent avec ou sans `:relcl` ; relatif de liaison |
 | [Complétive en *ut*](ut-completiva.md) | `ccomp` ou `advcl` après les verbes de demande, d'ordre et de crainte |
+| [Adjectif prédicatif](praedicatiuum.md) | `advcl:pred` ou `xcomp` ; rattachement au verbe ou au nom |
+| [Adjectif et participe substantivés](substantiuum.md) | NOUN sous le nom du dictionnaire, ou ADJ / VERB sous le mot d'origine |
 
 ## À venir
 
 - Comparaison : *quam*, ablatif de comparaison (`obl:cmp`, `advcl:cmp`)
 - Complément d'agent et datif d'agent (`obl:agent`)
-- Adjectif prédicatif et attribut de l'objet (`advcl:pred`, `xcomp`, `ATV`/`AtvV`, `xadv`)
+- Attribut de l'objet (`xcomp`, `OCOMP`, `xobj`)
 - Discours rapporté : *inquit*, discours direct (`parataxis:reporting`, `ccomp:reported`)
 - Lieu et temps (`obl:lmod`, `obl:tmod`, `advmod:lmod`)
 - Déterminants et pronoms (`DET` ou `PRON` pour *hic*, *ille*, *is*)

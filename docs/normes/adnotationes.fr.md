@@ -43,7 +43,7 @@ Les scores calculés sur la partie de Tacite comptent donc comme erreurs des éc
 
 ## Questions ouvertes
 
-L'évaluation sur les *Catilinaires* et le *Catilina* (UD Perseus) a fait apparaître des cas que la norme ne tranche pas encore, ou tranche autrement que CIRCSE :
+L'évaluation sur les *Catilinaires*, le *Catilina* et des poètes (UD Perseus) a fait apparaître des cas que la norme ne tranche pas encore, ou tranche autrement que CIRCSE :
 
 - **nom attribut d'un pronom** (*nos consules perferemus*, *ego video consul*) : `xcomp` dans Perseus, et dans CIRCSE pour des noms après *videor* et *fio* ; `appos` est l'autre lecture ;
 - ***iam pridem*, *iam diu*** : chaîne d'adverbes (Perseus) ou expression figée (`fixed`) ;
@@ -51,7 +51,10 @@ L'évaluation sur les *Catilinaires* et le *Catilina* (UD Perseus) a fait appara
 - **complétive en *ut* et *ne*** après un verbe de demande, d'ordre ou de crainte : la norme écrit `ccomp`, comme UD et PROIEL ; CIRCSE et Perseus ont `advcl` (voir [Complétive en *ut*](../phaenomena/ut-completiva.md)) ;
 - ***videor*** : la norme le nomme parmi les verbes pleins et lui donne son propre lemme ; CIRCSE et Perseus n'ont que *video* ;
 - ***paucus*, *cunctus*, *reliquus*** : DET dans Perseus, ITTB et (pour les deux premiers) CIRCSE, ADJ dans PROIEL ; la liste des DET de la norme ne les nomme pas ;
-- ***igitur*** : CCONJ `cc` dans la norme (décision 15, « comme CIRCSE »), mais CIRCSE n'en a que 4 occurrences, partagées entre `cc` et `discourse` ; Perseus, ITTB, LLCT et UDante le mettent en PART `discourse`, PROIEL en ADV `discourse`. *itaque* (décision 38) est dans le même cas.
+- ***igitur*, *ergo*** : CCONJ `cc` dans la norme (décision 15, « comme CIRCSE »), mais CIRCSE n'a que 4 *igitur* et 6 *ergo*, partagés à égalité entre `cc` et `discourse` ; Perseus, ITTB, LLCT et UDante mettent *igitur* en PART `discourse`, PROIEL en ADV `discourse`, et Perseus *ergo* en ADV `discourse` (25 sur 25). *itaque* (décision 38) est dans le même cas ;
+- ***quidam*, *quicumque*** employés seuls : DET dans CIRCSE (19, 10) comme dans Perseus (24, 12) ; la liste des DET de la norme ne les nomme pas ;
+- ***domum*, *rus* de direction** : `obl:lmod` pour la norme ; `obj` dans CIRCSE (16 contre 3) comme dans Perseus ;
+- **adjectifs substantivés à article de renvoi** (*malum*, *fera*, *bonum*) : NOUN sous le nom pour la norme et pour CIRCSE, ADJ sous l'adjectif pour Perseus et PROIEL (voir [Substantivés](../phaenomena/substantiuum.md)).
 
 Sur ces textes, Perseus suit en outre des conventions propres (catégories, traits, `obj` à l'ablatif, participes, relatives), décrites sur la [page de Perseus](perseus.md#conventions-comparees-a-circse).
 
